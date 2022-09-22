@@ -2,7 +2,6 @@ import 'adapter.dart';
 import 'cancel_token.dart';
 import 'headers.dart';
 import 'transformer.dart';
-import 'utils.dart';
 
 /// Callback to listen the progress for sending/receiving data.
 ///
@@ -236,11 +235,11 @@ class Options {
   }) {
     Map<String, dynamic>? _headers;
     if (headers == null && this.headers != null) {
-      _headers = caseInsensitiveKeyMap(this.headers!);
+      _headers = this.headers!;
     }
 
     if (headers != null) {
-      headers = caseInsensitiveKeyMap(headers);
+      headers = this.headers!;
       assert(
         !(contentType != null &&
             headers.containsKey(Headers.contentTypeHeader)),
@@ -286,7 +285,7 @@ class Options {
     query.addAll(baseOpt.queryParameters);
     if (queryParameters != null) query.addAll(queryParameters);
 
-    var _headers = caseInsensitiveKeyMap(baseOpt.headers);
+    var _headers = baseOpt.headers;
     _headers.remove(Headers.contentTypeHeader);
 
     String? _contentType;
@@ -629,7 +628,7 @@ class _RequestConfig {
   late Map<String, dynamic> _headers;
 
   set headers(Map<String, dynamic>? headers) {
-    _headers = caseInsensitiveKeyMap(headers);
+    _headers = headers ?? {};
     if (_defaultContentType != null &&
         !_headers.containsKey(Headers.contentTypeHeader)) {
       _headers[Headers.contentTypeHeader] = _defaultContentType;
