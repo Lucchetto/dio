@@ -335,9 +335,6 @@ class Options {
   /// Http method.
   String? method;
 
-  /// Http request headers. The keys of initial headers will be converted to lowercase,
-  /// for example 'Content-Type' will be converted to 'content-type'.
-  ///
   /// The key of Header Map is case-insensitive, eg: content-type and Content-Type are
   /// regard as the same key.
   Map<String, dynamic>? headers;
@@ -488,7 +485,6 @@ class RequestOptions extends _RequestConfig with OptionsMixin {
   }) {
     var contentTypeInHeader = headers != null &&
         headers.keys
-            .map((e) => e.toLowerCase())
             .contains(Headers.contentTypeHeader);
 
     assert(
